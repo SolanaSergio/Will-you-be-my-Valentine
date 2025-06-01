@@ -1,51 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f9e3e3;
-    font-family: 'Arial', sans-serif;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+  font-family: 'Poppins', sans-serif;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.container {
+  text-align: center;
+  width: 100%;
+}
+
+h1 {
+  font-size: 2.5em;
+  color: #d32f2f;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  animation: fadeInDown 1s ease-out;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+/* YES BUTTON - Can grow and change */
+.yes-button {
+  font-size: 1.5em;
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* NO BUTTON - COMPLETELY FIXED AND ISOLATED */
+.no-button {
+  font-size: 1.5em !important;
+  padding: 10px 20px !important;
+  background-color: #f44336 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  font-family: 'Poppins', sans-serif !important;
+  /* ABSOLUTELY NO TRANSITIONS OR ANIMATIONS */
+  transition: none !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+.no-button:hover {
+  background-color: #e53935 !important;
+  /* Keep size locked on hover */
+  font-size: 1.5em !important;
+}
+
+.gif_container {
+  margin-top: 2rem;
+  animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+.gif_container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
   }
-  
-  .container {
-    text-align: center;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  h1 {
-    font-size: 2.5em;
-    color: #d32f2f;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
-  
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
   .buttons {
-    margin-top: 20px;
+    flex-direction: column;
+    align-items: center;
   }
   
-  .yes-button {
-    font-size: 1.5em;
-    padding: 10px 20px;
-    margin-right: 10px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  .yes-button, .no-button {
+    width: 200px;
+    margin: 0.5rem 0;
   }
   
+  /* Extra protection for no-button on mobile */
   .no-button {
-    font-size: 1.5em;
-    padding: 10px 20px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    font-size: 1.5em !important;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
   }
   
-  .gif_container img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-top: 20px;
+  .yes-button, .no-button {
+    font-size: 1rem;
+    padding: 10px 20px;
+    width: 150px;
   }
+  
+  /* Mobile no-button protection */
+  .no-button {
+    font-size: 1rem !important; /* Ensure mobile override is also fixed */
+  }
+}
