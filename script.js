@@ -32,7 +32,15 @@ const messages = [
     "I promise it'll be worth it!",
     "Come on, don't leave me hanging...",
     "Okay, okay... but what if you said yes?",
-    "Just kidding! Please say yes! ❤️"
+    "Just kidding! Please say yes! ❤️",
+    "But why though? 🤔",
+    "That's a bold choice...",
+    "Are you absolutely certain?",
+    "Last chance to reconsider!",
+    "What if I said magic word?",
+    "This is your final answer?",
+    "I respect your choice... BUT",
+    "You know you want to say yes..."
 ];
 
 let messageIndex = 0;
