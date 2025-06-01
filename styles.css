@@ -14,71 +14,146 @@ body {
   font-family: 'Poppins', sans-serif;
   flex-direction: column;
   overflow-x: hidden;
+  overflow-y: auto;
+  padding: 1rem;
 }
 
 .container {
   text-align: center;
   width: 100%;
+  max-width: 100vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
 h1 {
-  font-size: 2.5em;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   color: #d32f2f;
   font-weight: 700;
-  margin-bottom: 2rem;
+  margin: 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   animation: fadeInDown 1s ease-out;
+  padding: 0 1rem;
+  word-wrap: break-word;
 }
 
 .buttons {
-  margin-top: 20px;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  position: relative;
+  min-height: 60px;
 }
 
-/* YES BUTTON - Can grow and change */
+/* YES BUTTON - Can grow dynamically */
 .yes-button {
-  font-size: 1.5em;
-  padding: 10px 20px;
-  margin-right: 10px;
+  /* Use CSS custom properties for dynamic sizing */
+  --base-size: 1;
+  --scale-factor: 1;
+  
+  font-size: calc(2.5rem * var(--scale-factor));
+  padding: calc(1rem * var(--scale-factor)) calc(1.5rem * var(--scale-factor));
   background-color: #4caf50;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: calc(0.5rem * var(--scale-factor));
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  
+  /* Smooth transitions for growth */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Ensure button stays clickable and visible */
+  position: relative;
+  z-index: 10;
+  
+  /* Better text containment */
+  white-space: nowrap;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Prevent text overflow */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  /* Minimum dimensions to prevent squishing */
+  min-width: calc(6rem * var(--scale-factor));
+  min-height: calc(4rem * var(--scale-factor));
+  
+  /* Box shadow for better visibility */
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
 }
 
-/* NO BUTTON - COMPLETELY FIXED AND ISOLATED */
+.yes-button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+}
+
+.yes-button:active {
+  transform: translateY(0);
+}
+
+/* NO BUTTON - Stays completely fixed */
 .no-button {
-  font-size: 1.5em !important;
-  padding: 10px 20px !important;
+  font-size: 1rem !important;
+  padding: 0.75rem 1.5rem !important;
   background-color: #f44336 !important;
   color: white !important;
   border: none !important;
-  border-radius: 5px !important;
+  border-radius: 0.5rem !important;
   cursor: pointer !important;
   font-family: 'Poppins', sans-serif !important;
-  /* ABSOLUTELY NO TRANSITIONS OR ANIMATIONS */
-  transition: none !important;
+  font-weight: 600 !important;
+  
+  /* ABSOLUTELY NO CHANGES ALLOWED */
+  transition: background-color 0.2s ease !important;
   transform: none !important;
   animation: none !important;
+  
+  /* Fixed dimensions */
+  min-width: 80px !important;
+  min-height: 48px !important;
+  
+  /* Ensure it stays visible */
+  position: relative !important;
+  z-index: 5 !important;
+  
+  /* Box shadow */
+  box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3) !important;
 }
 
 .no-button:hover {
   background-color: #e53935 !important;
-  /* Keep size locked on hover */
-  font-size: 1.5em !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 12px rgba(244, 67, 54, 0.4) !important;
+}
+
+.no-button:active {
+  transform: translateY(0) !important;
 }
 
 .gif_container {
-  margin-top: 2rem;
+  margin-top: 1rem;
   animation: fadeInUp 1s ease-out 0.5s both;
+  width: 100%;
+  max-width: 400px;
 }
 
 .gif_container img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   border-radius: 10px;
-  margin-top: 20px;
+  max-width: 100%;
 }
 
 @keyframes fadeInDown {
@@ -103,37 +178,104 @@ h1 {
   }
 }
 
-/* Responsive design */
+/* Mobile responsive design */
 @media (max-width: 768px) {
+  body {
+    padding: 0.5rem;
+  }
+  
   .buttons {
-    flex-direction: column;
-    align-items: center;
+    gap: 0.8rem;
+    min-height: 50px;
   }
   
-  .yes-button, .no-button {
-    width: 200px;
-    margin: 0.5rem 0;
+  h1 {
+    margin-bottom: 1rem;
   }
   
-  /* Extra protection for no-button on mobile */
-  .no-button {
-    font-size: 1.5em !important;
+  .gif_container {
+    max-width: 300px;
+  }
+  
+  .yes-button {
+    /* Ensure button doesn't break layout on mobile when very large */
+    max-width: 90vw;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    
+    /* More dramatic scaling ratios for mobile */
+    font-size: calc(2rem * var(--scale-factor));
+    padding: calc(0.8rem * var(--scale-factor)) calc(1.2rem * var(--scale-factor));
+    
+    /* Ensure proper aspect ratio */
+    aspect-ratio: auto;
+    min-width: calc(5.5rem * var(--scale-factor));
+    min-height: calc(3.5rem * var(--scale-factor));
   }
 }
 
 @media (max-width: 480px) {
-  h1 {
-    font-size: 1.8rem;
+  body {
+    padding: 0.25rem;
   }
   
-  .yes-button, .no-button {
-    font-size: 1rem;
-    padding: 10px 20px;
-    width: 150px;
+  .buttons {
+    gap: 0.6rem;
+    min-height: 45px;
   }
   
-  /* Mobile no-button protection */
-  .no-button {
-    font-size: 1rem !important; /* Ensure mobile override is also fixed */
+  .gif_container {
+    max-width: 250px;
+    margin-top: 0.5rem;
+  }
+  
+  .yes-button {
+    /* More dramatic scaling on small mobile */
+    font-size: calc(1.8rem * var(--scale-factor));
+    padding: calc(0.7rem * var(--scale-factor)) calc(1rem * var(--scale-factor));
+    max-width: 85vw;
+    
+    /* Ensure minimum touch target even when scaling */
+    min-width: calc(5rem * var(--scale-factor));
+    min-height: calc(3.2rem * var(--scale-factor));
+  }
+}
+
+/* Special handling for extremely large buttons */
+.yes-button[data-mega-size="true"] {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 1000 !important;
+  max-width: 95vw !important;
+  max-height: 95vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  
+  /* Extremely dramatic text for mega-sized buttons */
+  font-size: calc(4rem * var(--scale-factor)) !important;
+  padding: calc(1rem * var(--scale-factor)) calc(1.5rem * var(--scale-factor)) !important;
+  line-height: 1.1 !important;
+  font-weight: 700 !important;
+}
+
+/* Mobile responsive mega-size adjustments */
+@media (max-width: 768px) {
+  .yes-button[data-mega-size="true"] {
+    font-size: calc(3rem * var(--scale-factor)) !important;
+    padding: calc(1rem * var(--scale-factor)) calc(1.5rem * var(--scale-factor)) !important;
+    max-width: 90vw !important;
+    max-height: 90vh !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .yes-button[data-mega-size="true"] {
+    font-size: calc(2.5rem * var(--scale-factor)) !important;
+    padding: calc(1rem * var(--scale-factor)) calc(1.5rem * var(--scale-factor)) !important;
+    max-width: 85vw !important;
+    max-height: 85vh !important;
   }
 }
